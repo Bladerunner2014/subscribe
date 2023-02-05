@@ -42,7 +42,7 @@ class SubscribeManager:
                                        port=self.config["INVESTOR_PORT"]
                                        ,
                                        body=request_json,
-                                       timeout=self.config["INVESTOR_TIMEOUT"], error_log_dict={"message": "salam"})
+                                       timeout=self.config["INVESTOR_TIMEOUT"], error_log_dict={"message": ErrorMessage.INV_INSERT})
             res.set_status_code(StatusCode.SUCCESS)
             res.set_response({"message": InfoMessage.INV_SUCCESS})
 
