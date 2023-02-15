@@ -7,7 +7,7 @@ class StatusCode:
     FORBIDDEN = 403
     NOT_FOUND = 404
     CONFLICT = 409
-
+    TRANSACTION = 422
     # 5xx
     INTERNAL_ERROR = 500
     NOCONTENT = 500
