@@ -20,8 +20,9 @@ def subscriber_info():
     request_data = request.get_json()
     user_id = request.headers.get('user_id')
 
-    if not user_id:
-        return logger.error(ErrorMessage.BAD_REQUEST), StatusCode.BAD_REQUEST
+    if user_id is None:
+        logger.error(ErrorMessage.BAD_REQUEST)
+        return ErrorMessage.BAD_REQUEST, StatusCode.BAD_REQUEST
 
     sub_manager = SubscribeManager()
     res = sub_manager.handle_investor(user_id, dt=request_data)
