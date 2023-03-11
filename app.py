@@ -26,7 +26,8 @@ def subscriber_info():
 
     sub_manager = SubscribeManager()
     res = sub_manager.handle_investor(user_id, dt=request_data)
-
+    if res:
+        logger.info(InfoMessage.INV_SUCCESS)
     return res.generate_response()
 
 
