@@ -11,10 +11,11 @@ class RequestHandler:
         self.logger = logging.getLogger(__name__)
 
     def send_post_request(self, base_url: str, end_point: str, port: str, body: dict, timeout: str,
-                          error_log_dict: dict) -> (dict, int):
+                          error_log_dict: dict, headers: dict = None) -> (dict, int):
         """
         post_request send post request .
 
+        :param headers:
         :param base_url: destination base_url
         :param end_point: destination end_point
         :param port: destination port
@@ -24,6 +25,8 @@ class RequestHandler:
         :return: returns the response
         """
         default_headers = {"Content-Type": "application/json"}
+        if headers:
+            default_headers.update(headers)
         try:
             r = requests.post(url=base_url + ":" + port + end_point, data=json.dumps(body), headers=default_headers,
                               timeout=int(timeout))
