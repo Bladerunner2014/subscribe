@@ -22,6 +22,7 @@ class ErrorMessage:
     AUTH_INSERT = "auth insert error"
     URL_INSERT = "url insert error"
     INV_INSERT = "investor insert error"
+    INV_ERROR = "error from investor repo side"
     TRANS_ID = "transaction id is not valid"
 
     REDIS_CONNECTION = "redis connection error"

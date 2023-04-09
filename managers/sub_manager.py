@@ -57,6 +57,22 @@ class SubscribeManager:
         res.set_status_code(status)
         return res
 
+    def subscription_info(self, user_id):
+        result, status = self.req.send_get_request(base_url=self.config["INVESTOR_BASE_URL"],
+                                                   end_point=self.config["INVESTOR_GET_URL"],
+                                                   port=self.config["INVESTOR_PORT"],
+                                                   headers={"user_id": user_id},
+                                                   timeout=self.config["INVESTOR_TIMEOUT"],
+                                                   error_log_dict={"message": ErrorMessage.INV_ERROR})
+
+        if status != StatusCode.SUCCESS:
+            return result, status
+
+        result = json.loads(result)
+        not_json = {"sub_level": result["sub_level"], "expire_date": result["expire_date"]}
+        result = json.dumps(not_json)
+        return result, status
+
     @staticmethod
     def transaction_checker(txid):
         url = "https://apilist.tronscan.org/api/transaction-info?hash=" + str(txid)

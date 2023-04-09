@@ -31,6 +31,21 @@ def subscriber_info():
     return res.generate_response()
 
 
+@v1_blueprint.route('/subscribe', methods=['GET'])
+def subscription_info():
+    user_id = request.headers.get('X-Consumer-Username')
+
+    if user_id is None:
+        logger.error(ErrorMessage.BAD_REQUEST)
+        return ErrorMessage.BAD_REQUEST, StatusCode.BAD_REQUEST
+
+    sub_manager = SubscribeManager()
+    res = sub_manager.subscription_info(user_id)
+    if res:
+        logger.info(InfoMessage.INV_FOUND)
+    return res
+
+
 swagger.run_swagger(app)
 log.setup_logger()
 

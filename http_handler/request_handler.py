@@ -81,11 +81,12 @@ class RequestHandler:
         else:
             return r.text, r.status_code
 
-    def send_get_request(self, base_url: str, port: str, end_point: str, params: dict, timeout: str,
-                         error_log_dict: dict) -> (dict, int):
+    def send_get_request(self, base_url: str, port: str, end_point: str, timeout: str, error_log_dict: dict,
+                         params: dict = None, headers: dict = None):
         """
         post_request send post request .
 
+        :param headers:
         :param base_url: destination host
         :param port: destination port
         :param end_point: destination end point
@@ -95,6 +96,8 @@ class RequestHandler:
         :return: returns the response
         """
         default_headers = {"Content-Type": "application/json"}
+        if headers:
+            default_headers.update(headers)
         try:
             r = requests.get(url=base_url + ":" + port + end_point, params=params, headers=default_headers,
                              timeout=int(timeout))
@@ -110,7 +113,10 @@ class RequestHandler:
             self.logger.error(error_log_dict["REQUEST_ERROR"])
             self.logger.error(error)
             raise error
-        if r.status_code == StatusCode.SUCCESS:
+
+        if r.status_code == StatusCode.SUCCESS and r.content:
+            return r.content, r.status_code
+        elif r.status_code == StatusCode.SUCCESS and r.json():
             return r.json(), r.status_code
         else:
             return r.text, r.status_code

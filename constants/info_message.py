@@ -7,6 +7,7 @@ class InfoMessage:
     SIGNUP_SUCCESS = "signup successful"
     INV_SUCCESS = "investor added successfully"
     INV_UPDATE = "investor updated successfully"
+    INV_FOUND = "investor repo sent information"
     TRANSACTION_SUCCESS = "SUCCESS"
 
     VERIFY_REQUEST = "verify request"
